@@ -9,6 +9,8 @@ CREATE TABLE "users" (
     "email" text not null,
     "pw_hash" text not null,
     "role" roles not null,
+    "department" text not null,
+    "is_active" boolean default true,
     "created_at" timestamp default now(),
     "updated_at" timestamp
 );
@@ -23,20 +25,22 @@ CREATE TABLE "assets" (
     "updated_at" timestamp default now()  
 );
 
-CREATE TABLE "assignments" (
+CREATE TABLE "asset_assignments" (
     "id" serial primary key,
-    "asset_id" integer not null,
-    "user_id" integer not null,
+    "asset_id" integer not null references assets('id'),
+    "user_id" integer not null references users('id'),
     "assigned_at" timestamp default now(),
-    "returned_at" timestamp
+    "returned_at" timestamp,
+    "assigned_by" integer not null
 );
 
 CREATE TABLE "requests" (
     "id" serial primary key,
-    "user_id" integer not null,
+    "user_id" integer not null references users('id'),
     "asset_type" asset_type,
     "reason" text not null,
     "status" approval_status default 'pending',
+    "approved_by" integer not null, 
     "created_at" timestamp default now(),
-    "updated_at" timestamp default now()
+    "reviewed_at" timestamp default now()
 );
