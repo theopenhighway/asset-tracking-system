@@ -1,7 +1,12 @@
 CREATE TYPE roles AS ENUM ('admin', 'user', 'employee');
 CREATE TYPE asset_type as ENUM ('laptop', 'asdfa', 'asdfasdfa');
 CREATE TYPE approval_status as ENUM ('pending', 'approved', 'rejected', 'cancelled');
-CREATE TYPE asset_status as ENUM ('available', 'assigned', 'maintenance', 'damaged', 'retired');
+CREATE TYPE asset_status as ENUM ('available', 'maintenance', 'damaged', 'retired');
+
+CREATE TABLE "departments" (
+    "id" serial primary key,
+    "name" text unique not null
+);
 
 CREATE TABLE "users" (
     "id" serial primary key,
@@ -9,7 +14,7 @@ CREATE TABLE "users" (
     "email" text not null,
     "pw_hash" text not null,
     "role" roles not null,
-    "department" text not null,
+    "department_id" integer not null references departments('id'),
     "is_active" boolean default true,
     "created_at" timestamp default now(),
     "updated_at" timestamp
