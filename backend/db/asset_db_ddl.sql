@@ -3,12 +3,12 @@ CREATE TYPE asset_type as ENUM ('laptop', 'dev_equipment', 'iot_dev_board', 'tes
 CREATE TYPE approval_status as ENUM ('pending', 'approved', 'rejected', 'cancelled');
 CREATE TYPE asset_status as ENUM ('available', 'maintenance', 'damaged', 'retired');
 
-CREATE TABLE "departments" (
+CREATE TABLE IF NOT EXISTS "departments" (
     "id" serial primary key,
     "name" text unique not null
 );
 
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
     "id" serial primary key,
     "name" text not null,
     "email" text not null,
@@ -20,7 +20,7 @@ CREATE TABLE "users" (
     "updated_at" timestamp default now()
 );
 
-CREATE TABLE "assets" (
+CREATE TABLE IF NOT EXISTS "assets" (
     "id" integer,
     "name" text not null,
     "asset_type" asset_type not null,
@@ -30,22 +30,22 @@ CREATE TABLE "assets" (
     "updated_at" timestamp default now()  
 );
 
-CREATE TABLE "asset_assignments" (
+CREATE TABLE IF NOT EXISTS "asset_assignments" (
     "id" serial primary key,
     "asset_id" integer not null references assets('id'),
     "user_id" integer not null references users('id'),
     "assigned_at" timestamp default now(),
     "returned_at" timestamp,
-    "assigned_by" integer not null
+    "assigned_by" integer not null references users('id')
 );
 
-CREATE TABLE "requests" (
+CREATE TABLE IF NOT EXISTS "requests" (
     "id" serial primary key,
     "user_id" integer not null references users('id'),
     "asset_type" asset_type,
     "reason" text not null,
     "status" approval_status default 'pending',
-    "approved_by" integer not null, 
+    "approved_by" integer not null references users('id'), 
     "created_at" timestamp default now(),
     "reviewed_at" timestamp default now()
 );
