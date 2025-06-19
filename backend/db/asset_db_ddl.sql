@@ -1,5 +1,5 @@
 CREATE TYPE roles AS ENUM ('admin', 'user', 'employee');
-CREATE TYPE asset_type as ENUM ('laptop', 'asdfa', 'asdfasdfa');
+CREATE TYPE asset_type as ENUM ('laptop', 'dev_equipment', 'iot_dev_board', 'test_equipment', 'sensor');
 CREATE TYPE approval_status as ENUM ('pending', 'approved', 'rejected', 'cancelled');
 CREATE TYPE asset_status as ENUM ('available', 'maintenance', 'damaged', 'retired');
 
@@ -17,7 +17,7 @@ CREATE TABLE "users" (
     "department_id" integer not null references departments('id'),
     "is_active" boolean default true,
     "created_at" timestamp default now(),
-    "updated_at" timestamp
+    "updated_at" timestamp default now()
 );
 
 CREATE TABLE "assets" (
@@ -25,7 +25,7 @@ CREATE TABLE "assets" (
     "name" text not null,
     "asset_type" asset_type not null,
     "status" asset_status default 'available',
-    "description" varchar(100) not null,
+    "detail" jsonb,
     "purchase_date" timestamp not null,
     "updated_at" timestamp default now()  
 );
