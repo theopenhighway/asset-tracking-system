@@ -1,4 +1,4 @@
 INSERT INTO "departmets" (name)
 VALUES 
-("Rnd"), ("Embedded Engineer"),( "Software Engineer"), ("Hardware Engineer"), ("Quality Assurance");
+("Rn"), ("Embedded Engineer"),( "Software Engineer"), ("Hardware Engineer"), ("Quality Assurance");
 

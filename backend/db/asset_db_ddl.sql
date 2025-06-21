@@ -1,6 +1,7 @@
 CREATE TYPE roles AS ENUM ('admin', 'user', 'employee');
 CREATE TYPE asset_type as ENUM ('laptop', 'dev_equipment', 'iot_dev_board', 'test_equipment', 'sensor');
 CREATE TYPE approval_status as ENUM ('pending', 'approved', 'rejected', 'cancelled');
+CREATE TYPE request_status as ENUM ('open', 'closed');
 CREATE TYPE asset_status as ENUM ('available', 'maintenance', 'damaged', 'retired');
 
 CREATE TABLE IF NOT EXISTS "departments" (
@@ -44,8 +45,25 @@ CREATE TABLE IF NOT EXISTS "requests" (
     "user_id" integer not null references users('id'),
     "asset_type" asset_type,
     "reason" text not null,
-    "status" approval_status default 'pending',
-    "approved_by" integer not null references users('id'), 
+    "approver_user_id" integer not null references users('id'),  
     "created_at" timestamp default now(),
-    "reviewed_at" timestamp default now()
+    "request_status" request_status default 'open',
+    "updated_at" timestamp default now()
+);
+
+CREATE TABLE IF NOT EXISTS "request_history" (
+    "id" serial primary key,
+    "request_id" integer not null references requests('id'),
+    "approval_status" approval_status not null,
+    "request_status" request_status not null,
+    "updated_by" integer not null references users('id'),
+    "updated_at" timestamp default now()
+);
+
+CREATE TABLE IF NOT EXISTS "asset_history" (
+    "id" serial primary key,
+    "asset_id" integer not null references assets('id'),
+    "status" asset_status not null,
+    "updated_by" integer not null references users('id'),
+    "updated_at" timestamp default now()
 );
