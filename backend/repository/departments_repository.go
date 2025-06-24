@@ -1,0 +1,58 @@
+package repository
+
+import (
+	"asset-tracking-system/entity"
+	"database/sql"
+)
+
+type DeptRepostiory interface {
+	CreateDepartment(name string) (*entity.Departments, error)
+	GetDepartmentbyId(id int) (*entity.Departments, error)
+}
+
+type deptRepository struct {
+	db *sql.DB
+}
+
+func NewDeptRepository(db *sql.DB) *userRepository {
+	return &userRepository{
+		db: db,
+	}
+}
+
+func (r *deptRepository) CreateDepartment(name string) (*entity.Departments, error) {
+	registeredDept := entity.Departments{}
+
+	sql := "INSERT INTO departments (name) VALUES ($1) RETURNING id, name"
+	err := r.db.QueryRow(sql, name).Scan(&registeredDept.Id, &registeredDept.Name)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &registeredDept, nil
+}
+
+func (r *deptRepository) GetDepartmentbyId(id int) (*entity.Departments, error) {
+	deptDetail := entity.Departments{}
+	sql := "SELECT id, name from departments WHERE id = $1"
+	err := r.db.QueryRow(sql, id).Scan(&deptDetail.Id, &deptDetail.Name)
+
+	if err != nil {
+		return nil, err
+	}
+	return &deptDetail, nil
+}
+
+func (r *deptRepository) GetDepartment() (*[]entity.Departments, error) {
+
+	return nil, nil
+}
+
+func (r *deptRepository) UpdateDepartment(id int) (*entity.Departments, error) {
+	return nil, nil
+}
+
+func (r *deptRepository) DeleteDepartment(id int) (*entity.Departments, error) {
+	return nil, nil
+}
