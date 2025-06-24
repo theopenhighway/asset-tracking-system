@@ -49,8 +49,16 @@ func (r *deptRepository) GetDepartment() (*[]entity.Departments, error) {
 	return nil, nil
 }
 
-func (r *deptRepository) UpdateDepartment(id int) (*entity.Departments, error) {
-	return nil, nil
+func (r *deptRepository) UpdateDepartment(id int, name string) (*entity.Departments, error) {
+	dept := entity.Departments{}
+	sql := "UPDATE departments SET name = $1 WHERE id = $2 RETURNING id, name"
+	err := r.db.QueryRow(sql, id, name).Scan(&dept.Id, &dept.Name)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &dept, nil
 }
 
 func (r *deptRepository) DeleteDepartment(id int) (*entity.Departments, error) {
