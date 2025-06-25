@@ -8,6 +8,9 @@ import (
 type DeptRepostiory interface {
 	CreateDepartment(name string) (*entity.Departments, error)
 	GetDepartmentbyId(id int) (*entity.Departments, error)
+	GetDepartment() (*[]entity.Departments, error)
+	UpdateDepartment(id int, name string) (*entity.Departments, error)
+	DeleteDepartment(id int) error
 }
 
 type deptRepository struct {
@@ -90,5 +93,13 @@ func (r *deptRepository) UpdateDepartment(id int, name string) (*entity.Departme
 }
 
 func (r *deptRepository) DeleteDepartment(id int) error {
+	sql := "DELETE departments WHERE id = $1"
+
+	_, err := r.db.Query(sql, id)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
