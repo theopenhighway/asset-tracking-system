@@ -14,3 +14,17 @@ func NewDeptService(dr repository.DeptRepostiory) *deptService {
 		deptRepository: dr,
 	}
 }
+
+func (s *deptService) CreateDept() {
+
+}
+
+func (s *deptService) FindDeptById() {
+
+}
+
+func (s *deptService) GetAllDept() {
+
+}
+
+func 
