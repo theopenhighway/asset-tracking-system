@@ -32,8 +32,21 @@ func (s *deptService) CreateDept(dept *dto.CreateDepartmentRequest) (*dto.Depart
 	return &result, nil
 }
 
-func (s *deptService) FindDeptById(*dto.GetDepartmentbyIdRequest) (*dto.DepartmentResponse, error) {
-	return nil, nil
+func (s *deptService) FindDeptById(deptId *dto.GetDepartmentbyIdRequest) (*dto.DepartmentResponse, error) {
+	dept, err := s.deptRepository.GetDepartmentbyId(deptId.Id)
+
+	if err != nil {
+		return nil, err
+	}
+	if dept == nil {
+		return nil, nil
+	}
+
+	result := dto.DepartmentResponse{
+		Id:   dept.Id,
+		Name: dept.Name,
+	}
+	return &result, nil
 }
 
 func (s *deptService) GetAllDept() (*[]dto.DepartmentResponse, error) {

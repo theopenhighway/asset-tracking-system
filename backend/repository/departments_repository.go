@@ -40,7 +40,6 @@ func (r *deptRepository) GetDepartmentbyId(id int) (*entity.Departments, error) 
 	deptDetail := entity.Departments{}
 	sql := "SELECT id, name from departments WHERE id = $1"
 	err := r.db.QueryRow(sql, id).Scan(&deptDetail.Id, &deptDetail.Name)
-
 	if err != nil {
 		return nil, err
 	}
