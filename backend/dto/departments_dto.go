@@ -12,3 +12,8 @@ type DepartmentResponse struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
 }
+
+type UpdateDepartmentRequest struct {
+	Id   int    `json:"id" binding:"required"`
+	Name string `json:"name" binding:"required"`
+}

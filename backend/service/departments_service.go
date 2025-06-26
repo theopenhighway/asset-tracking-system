@@ -53,10 +53,19 @@ func (s *deptService) GetAllDept() (*[]dto.DepartmentResponse, error) {
 	return nil, nil
 }
 
-func (s *deptService) UpdateDept() (*dto.DepartmentResponse, error) {
-	return nil, nil
+func (s *deptService) UpdateDept(deptId *dto.UpdateDepartmentRequest) (*dto.DepartmentResponse, error) {
+	dept, err := s.deptRepository.UpdateDepartment(deptId.Id, deptId.Name)
+
+	if err != nil {
+		return nil, err
+	}
+	result := dto.DepartmentResponse{
+		Id:   dept.Id,
+		Name: dept.Name,
+	}
+	return &result, nil
 }
 
-func (s *deptService) DeleteDeptById(*dto.GetDepartmentbyIdRequest) error {
+func (s *deptService) DeleteDeptById(deptId *dto.GetDepartmentbyIdRequest) error {
 	return nil
 }
