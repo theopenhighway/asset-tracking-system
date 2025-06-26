@@ -9,6 +9,6 @@ type GetDepartmentbyIdRequest struct {
 }
 
 type DepartmentResponse struct {
-	Id   int    `json:"id"`
+	Id   string `json:"id"`
 	Name string `json:"name"`
 }

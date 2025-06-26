@@ -18,8 +18,18 @@ func NewDeptService(dr repository.DeptRepostiory) *deptService {
 	}
 }
 
-func (s *deptService) CreateDept(*dto.CreateDepartmentRequest) (*dto.DepartmentResponse, error) {
-	return nil, nil
+func (s *deptService) CreateDept(dept *dto.CreateDepartmentRequest) (*dto.DepartmentResponse, error) {
+	newDept, err := s.deptRepository.CreateDepartment(dept.Name)
+
+	if err != nil {
+		return nil, err
+	}
+
+	result := dto.DepartmentResponse{
+		Id:   newDept.Id,
+		Name: newDept.Name,
+	}
+	return &result, nil
 }
 
 func (s *deptService) FindDeptById(*dto.GetDepartmentbyIdRequest) (*dto.DepartmentResponse, error) {
