@@ -6,6 +6,10 @@ import (
 )
 
 type DeptService interface {
+	CreateDept(dept *dto.CreateDepartmentRequest) (*dto.DepartmentResponse, error)
+	FindDeptById(deptId *dto.GetDepartmentbyIdRequest) (*dto.DepartmentResponse, error)
+	GetAllDept() (*[]dto.DepartmentResponse, error)
+	DeleteDeptById(deptId *dto.GetDepartmentbyIdRequest) error
 }
 
 type deptService struct {
