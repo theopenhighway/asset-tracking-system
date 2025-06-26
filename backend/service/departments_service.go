@@ -67,5 +67,11 @@ func (s *deptService) UpdateDept(deptId *dto.UpdateDepartmentRequest) (*dto.Depa
 }
 
 func (s *deptService) DeleteDeptById(deptId *dto.GetDepartmentbyIdRequest) error {
+	err := s.deptRepository.DeleteDepartment(deptId.Id)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
