@@ -15,9 +15,7 @@ type HandlerOps struct {
 
 func SetupHandlers(db *sql.DB) *HandlerOps {
 	deptRepository := repository.NewDeptRepository(db)
-
 	deptService := service.NewDeptService(deptRepository)
-
 	deptHandler := handler.NewDeptHandler(deptService)
 
 	return &HandlerOps{
@@ -27,6 +25,11 @@ func SetupHandlers(db *sql.DB) *HandlerOps {
 
 func SetupRoutes(h *HandlerOps) *gin.Engine {
 	g := gin.New()
+
+	g.GET("/all-dept", h.deptHandler.GetAllDept)
+	g.GET("/dept-id/{id}", h.deptHandler.GetDeptById)
+	g.POST("/add-dept", h.deptHandler.AddDept)
+	g.PATCH("/update-dept", h.deptHandler.UpdateDept)
 
 	return g
 }
