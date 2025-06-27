@@ -10,6 +10,7 @@ type DeptService interface {
 	FindDeptById(deptId int) (*dto.DepartmentResponse, error)
 	GetAllDept() (*[]dto.DepartmentResponse, error)
 	DeleteDeptById(deptId int) error
+	UpdateDept(dept *dto.UpdateDepartmentRequest) (*dto.DepartmentResponse, error)
 }
 
 type deptService struct {
@@ -64,8 +65,8 @@ func (s *deptService) GetAllDept() (*[]dto.DepartmentResponse, error) {
 	return &deptArr, nil
 }
 
-func (s *deptService) UpdateDept(deptId *dto.UpdateDepartmentRequest) (*dto.DepartmentResponse, error) {
-	dept, err := s.deptRepository.UpdateDepartment(deptId.Id, deptId.Name)
+func (s *deptService) UpdateDept(deptDetail *dto.UpdateDepartmentRequest) (*dto.DepartmentResponse, error) {
+	dept, err := s.deptRepository.UpdateDepartment(deptDetail.Id, deptDetail.Name)
 
 	if err != nil {
 		return nil, err
