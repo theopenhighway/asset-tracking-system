@@ -54,7 +54,14 @@ func (s *deptService) FindDeptById(deptId *dto.GetDepartmentbyIdRequest) (*dto.D
 }
 
 func (s *deptService) GetAllDept() (*[]dto.DepartmentResponse, error) {
-	return nil, nil
+	dept, err := s.deptRepository.GetDepartment()
+	deptArr := []dto.DepartmentResponse{}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &deptArr, nil
 }
 
 func (s *deptService) UpdateDept(deptId *dto.UpdateDepartmentRequest) (*dto.DepartmentResponse, error) {

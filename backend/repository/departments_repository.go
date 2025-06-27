@@ -17,8 +17,8 @@ type deptRepository struct {
 	db *sql.DB
 }
 
-func NewDeptRepository(db *sql.DB) *userRepository {
-	return &userRepository{
+func NewDeptRepository(db *sql.DB) *deptRepository {
+	return &deptRepository{
 		db: db,
 	}
 }

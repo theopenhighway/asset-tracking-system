@@ -2,6 +2,8 @@ package setup
 
 import (
 	"asset-tracking-system/handler"
+	"asset-tracking-system/repository"
+	"asset-tracking-system/service"
 	"database/sql"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +14,15 @@ type HandlerOps struct {
 }
 
 func SetupHandlers(db *sql.DB) *HandlerOps {
-	return nil
+	deptRepository := repository.NewDeptRepository(db)
+
+	deptService := service.NewDeptService(deptRepository)
+
+	deptHandler := handler.NewDeptHandler(deptService)
+
+	return &HandlerOps{
+		deptHandler: deptHandler,
+	}
 }
 
 func SetupRoutes(h *HandlerOps) *gin.Engine {
