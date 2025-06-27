@@ -8,7 +8,7 @@ import (
 	"time"
 
 	database "asset-tracking-system/db"
-	// setup "asset-tracking-system/setup"
+	"asset-tracking-system/setup"
 
 	"github.com/joho/godotenv"
 )
