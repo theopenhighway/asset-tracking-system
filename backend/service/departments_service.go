@@ -36,8 +36,8 @@ func (s *deptService) CreateDept(dept *dto.CreateDepartmentRequest) (*dto.Depart
 	return &result, nil
 }
 
-func (s *deptService) FindDeptById(deptId *dto.GetDepartmentbyIdRequest) (*dto.DepartmentResponse, error) {
-	dept, err := s.deptRepository.GetDepartmentbyId(deptId.Id)
+func (s *deptService) FindDeptById(deptId int) (*dto.DepartmentResponse, error) {
+	dept, err := s.deptRepository.GetDepartmentbyId(deptId)
 
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (s *deptService) FindDeptById(deptId *dto.GetDepartmentbyIdRequest) (*dto.D
 }
 
 func (s *deptService) GetAllDept() (*[]dto.DepartmentResponse, error) {
-	dept, err := s.deptRepository.GetDepartment()
+	_, err := s.deptRepository.GetDepartment()
 	deptArr := []dto.DepartmentResponse{}
 
 	if err != nil {
@@ -77,8 +77,8 @@ func (s *deptService) UpdateDept(deptId *dto.UpdateDepartmentRequest) (*dto.Depa
 	return &result, nil
 }
 
-func (s *deptService) DeleteDeptById(deptId *dto.GetDepartmentbyIdRequest) error {
-	err := s.deptRepository.DeleteDepartment(deptId.Id)
+func (s *deptService) DeleteDeptById(deptId int) error {
+	err := s.deptRepository.DeleteDepartment(deptId)
 
 	if err != nil {
 		return err
