@@ -1,0 +1,26 @@
+package constant
+
+const (
+	ResponseMsgOK                       = "ok"
+	ResponseMsgErrorNotFound            = "data not found"
+	ResponseMsgErrorInvalidRequest      = "invalid request, please check your request"
+	ResponseMsgErrorInternalServer      = "our server encounter error, please contact us again"
+	ResponseMsgErrorWrongPwdEmail       = "incorrect email/password"
+	ResponseMsgErrorAuthentication      = "authentication required"
+	ResponseMsgErrorUnauthAccess        = "unauthorized access"
+	ResponseMsgErrorEmptyPwdEmail       = "email/password cannot be empty"
+	ResponseMsgErrorWalletNotFound      = "wallet id not found"
+	ResponseMsgErrorTrfMinimum          = "min transaction = Rp. 50 000"
+	ResponseMsgErrorTrfMaxmimum         = "max transaction = Rp. 10 000 000"
+	ResponseMsgErrorAccountExist        = "account already exists"
+	ResponseMsgErrorInvalidResetToken   = "invalid reset token"
+	ResponseMsgErrorInsufficientBalance = "insufficient balance"
+	ResponseMsgErrorTrfOwnWallet        = "cannot transfer to own wallet"
+	ResponseMsgErrorGameBoxNotExist     = "invalid box no"
+	ResponseMsgErrorInsufficientGame    = "insufficient game chance"
+	ResponseMsgErrorInvalidEmail        = "invalid email"
+	ResponseMsgErrorInvalidPwd          = "invalid password"
+	ResponseMsgErrorEmailNotFound       = "email not found"
+	ResponseMsgErrorPwdLength           = "password length: 8-42 characters"
+	ResponseMsgErrorInvalidSourceFund   = "only accepts: bank transfer, cash, credit card"
+)
